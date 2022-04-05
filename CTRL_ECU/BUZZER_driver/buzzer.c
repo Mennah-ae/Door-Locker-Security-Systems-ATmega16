@@ -1,28 +1,20 @@
+
 /******************************************************************************
  *
  * Module: Buzzer driver
  *
- * File Name: buzzer.h
+ * File Name: buzzer.c
  *
- * Description: Buzzer driver header file
+ * Description: Buzzer driver source file
  *
  * Author: Menna Saeed
  *
  *******************************************************************************/
 
-#ifndef BUZZER_H_
-#define BUZZER_H_
-
-#include "gpio.h"
+#include "buzzer.h"
 
 /*-------------------------------------------------------------------------------
- *                       Definitions                         					 *
---------------------------------------------------------------------------------*/
-#define BUZZER_PORT_ID 	PORTC_ID
-#define BUZZER_PIN_ID	PIN4_ID
-
-/*-------------------------------------------------------------------------------
- *                       Functions Prototypes                          			 *
+ *                       Functions Definitions                           		 *
 --------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------
  * [Function Name]: Buzzer_init
@@ -34,8 +26,11 @@
  * [Returns]:      Void
  *
  ----------------------------------------------------------------------------------*/
-void Buzzer_init (void);
-
+void Buzzer_init (void)
+{
+	GPIO_setupPinDirection(BUZZER_PORT_ID, BUZZER_PIN_ID, PIN_OUTPUT);
+	Buzzer_OFF();
+}
 /*-------------------------------------------------------------------------------
  * [Function Name]: Buzzer_ON
  *
@@ -46,8 +41,10 @@ void Buzzer_init (void);
  * [Returns]:      Void
  *
  ----------------------------------------------------------------------------------*/
-void Buzzer_ON (void);
-
+void Buzzer_ON (void)
+{
+	GPIO_writePin(BUZZER_PORT_ID, BUZZER_PIN_ID, LOGIC_HIGH);
+}
 /*-------------------------------------------------------------------------------
  * [Function Name]: Buzzer_OFF
  *
@@ -58,6 +55,7 @@ void Buzzer_ON (void);
  * [Returns]:      Void
  *
  ----------------------------------------------------------------------------------*/
-void Buzzer_OFF (void);
-
-#endif /* BUZZER_H_ */
+void Buzzer_OFF (void)
+{
+	GPIO_writePin(BUZZER_PORT_ID, BUZZER_PIN_ID, LOGIC_LOW);
+}
